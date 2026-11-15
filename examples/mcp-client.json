@@ -1,0 +1,14 @@
+{
+  "mcpServers": {
+    "bat": {
+      "command": "/absolute/path/to/bedrock-agent-toolkit/.venv/bin/bat",
+      "args": ["serve-mcp"],
+      "env": {
+        "BAT_WORKSPACE": "/absolute/path/to/bedrock-agent-toolkit/data",
+        "BAT_RUNTIME_ROOT": "/absolute/path/to/bedrock-agent-toolkit/runtime",
+        "BAT_RUNTIME_ADAPTER": "auto",
+        "BAT_BEDROCK_SERVER": "/absolute/path/to/bedrock_server"
+      }
+    }
+  }
+}

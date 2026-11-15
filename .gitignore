@@ -1,0 +1,45 @@
+# Secrets / local configuration
+.env
+.env.*
+!.env.example
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+.venv/
+venv/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# BAT local state (regenerated at runtime; never commit)
+data/
+runtime/environments/*
+!runtime/environments/.gitkeep
+runtime/sessions/*
+!runtime/sessions/.gitkeep
+runtime/incidents/*
+!runtime/incidents/.gitkeep
+runtime/snapshots/*
+!runtime/snapshots/.gitkeep
+runtime/cache/*
+!runtime/cache/.gitkeep
+runtime/*.log
+
+# Operator-supplied Minecraft server files (never redistribute)
+runtime/server/
+bedrock_server/
+*.mcpack
+*.mcaddon
+*.mcworld
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/

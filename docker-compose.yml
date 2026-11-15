@@ -1,0 +1,41 @@
+services:
+  bat:
+    build: .
+    image: bat-bedrock-agent-toolkit:0.1.0
+    container_name: bat
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:8000:8000"
+    environment:
+      BAT_WORKSPACE: /app/data
+      BAT_RUNTIME_ROOT: /app/runtime
+      BAT_HOST: 0.0.0.0
+      BAT_PORT: "8000"
+      # Set an API key before exposing the port beyond localhost.
+      BAT_API_KEY: ${BAT_API_KEY:-}
+      # Runtime testing requires your own server files (see docs/runtime.md).
+      BAT_RUNTIME_ADAPTER: ${BAT_RUNTIME_ADAPTER:-auto}
+      BAT_BEDROCK_SERVER: ${BAT_BEDROCK_SERVER:-}
+    volumes:
+      # Project data, artifacts, SQLite and job logs
+      - ./data:/app/data
+      # Environments, sessions, incidents, snapshots and (optionally) server files
+      - ./runtime:/app/runtime
+    healthcheck:
+      test:
+        - CMD
+        - python
+        - -c
+        - "import urllib.request,sys; sys.exit(0 if urllib.request.urlopen('http://127.0.0.1:8000/api/v1/health', timeout=4).status==200 else 1)"
+      interval: 30s
+      timeout: 5s
+      retries: 3
+
+  # Optional MCP server over stdio cannot be exposed through compose ports;
+  # run it on the host with `bat serve-mcp` or use the streamable-http transport.
+  # bat-mcp:
+  #   build: .
+  #   command: ["bat", "serve-mcp", "--transport", "streamable-http"]
+  #   volumes:
+  #     - ./data:/app/data
+  #     - ./runtime:/app/runtime
