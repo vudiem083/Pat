@@ -6,8 +6,10 @@ All notable changes to BAT — Bedrock Agent Toolkit.
 
 ### Changed
 
-- `README.md` is now a Vietnamese project introduction; the complete references moved to
-  `README.vi.md` (Vietnamese) and `README.en.md` (English), with all cross-links updated.
+- `README.md` is now the single English landing page: an introduction to the project plus detailed
+  installation, configuration, REST/MCP usage, real-server setup and troubleshooting. The separate
+  Vietnamese introduction and the split reference READMEs were removed; the reference material
+  lives in `docs/`.
 
 ## [0.1.0] — 2026-11-15
 

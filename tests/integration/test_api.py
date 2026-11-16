@@ -143,6 +143,14 @@ def test_content_generation_endpoint(client):
     generators = client.get(f"/api/v1/projects/{project_id}/content").json()
     assert "entity" in generators["generators"]
 
+    # A malformed spec is caller error, not a 500 with an internal traceback.
+    bad = client.post(f"/api/v1/projects/{project_id}/content/item", json={"spec": {}})
+    assert bad.status_code == 400
+    error = bad.json()["error"]
+    assert error["error_code"] == "BAT-INPUT-001"
+    assert error["details"]["generator"] == "item"
+    assert error["details"]["received"] == []
+
 
 def test_job_flow_over_rest(client):
     project_id = client.post(

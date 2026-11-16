@@ -48,6 +48,16 @@ from .storage.workspace import RuntimeLayout
 from .validators.engine import ValidatorEngine
 from .version import __version__
 
+# Markers of Python argument-binding TypeErrors (facade generators take **kwargs, so the
+# required arguments are enforced by the template functions they call).
+_BINDING_ERROR_MARKERS = (
+    "missing",
+    "required argument",
+    "unexpected keyword argument",
+    "positional argument",
+    "keyword-only argument",
+)
+
 CONTENT_GENERATORS = {
     "addon": "create_addon",
     "entity": "create_entity",
@@ -170,7 +180,20 @@ class BatServices:
         context = GenerationContext(project=project, projects=self.projects)
         addon = AddonGenerator(context)
         method = getattr(addon, CONTENT_GENERATORS[generator])
-        generated = method(**spec)
+        try:
+            generated = method(**spec)
+        except TypeError as exc:
+            # A malformed spec is caller error, not an internal failure. Generators
+            # take **kwargs facades, so argument binding can only be detected from
+            # the raised TypeError; anything else keeps propagating as a real bug.
+            text = str(exc)
+            if not any(marker in text for marker in _BINDING_ERROR_MARKERS):
+                raise
+            raise make_error(
+                "BAT-INPUT-001",
+                f"Invalid spec for generator {generator!r}: {text}.",
+                details={"generator": generator, "received": sorted(spec)},
+            ) from exc
         self.projects.touch(project)
         return {"generator": generator, "generated": generated.model_dump(), "project_id": project_id}
 
