@@ -7,7 +7,7 @@ một tầng nghiệp vụ:
 - **MCP server** (FastMCP) để tích hợp với tác nhân AI, và
 - **REST API** (FastAPI, `/api/v1`) cho ứng dụng, hệ thống tự động hoá và các client khác.
 
-[Tài liệu tiếng Anh](README.md) · Tài liệu tiếng Việt (tệp này)
+[Giới thiệu dự án](README.md) · Tài liệu tiếng Việt đầy đủ (tệp này) · [Full English reference](README.en.md)
 
 ---
 

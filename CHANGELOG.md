@@ -2,6 +2,13 @@
 
 All notable changes to BAT — Bedrock Agent Toolkit.
 
+## [Unreleased]
+
+### Changed
+
+- `README.md` is now a Vietnamese project introduction; the complete references moved to
+  `README.vi.md` (Vietnamese) and `README.en.md` (English), with all cross-links updated.
+
 ## [0.1.0] — 2026-11-15
 
 Initial MVP: a working vertical slice for Minecraft Bedrock add-ons and worlds, with MCP and REST

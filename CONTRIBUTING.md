@@ -64,7 +64,7 @@ python examples/example_workflow.py          # end-to-end slice
 
 - Keep the change focused; describe the behaviour, the evidence, and what you could not verify.
 - Include the test command you ran and its result.
-- Update docs (`README.md`, `README.vi.md`, `docs/*`) when behaviour changes. Both READMEs must stay
+- Update docs (`README.md` intro, `README.vi.md`, `README.en.md`, `docs/*`) when behaviour changes. Both full references must stay
   equivalent.
 - Do not add dependencies casually; BAT's runtime dependency set is intentionally small
   (FastAPI, uvicorn, pydantic, mcp).
